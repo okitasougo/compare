@@ -1,0 +1,60 @@
+# compare
+关于dota 训练集
+
+在SRGAN上的训练 参考代码：https://github.com/okitasougo/SRGAN-1
+1.关于python：(自己用的python3.6)
+如果你的python是3.8版本，请注意
+   在test_image.py中start = time.clock() python3.8不支持了，请修改为start = time.perf_counter()
+2.关于pytorch的安装：
+   查看cuda ：版本打开CMD，输入nvcc --version
+   根据对应版本去官网https://pytorch.org/get-started/previous-versions/寻找合适版本
+   本代码中有些逻辑需要你下载1.4.0版本，否则你需要修改一些代码：（对于cuda10.1请用：conda install pytorch==1.4.0 torchvision==0.5.0 cudatoolkit=10.1 -c pytorch）
+3.关于训练集：
+   请提前下载vgg16-397923af.pth到epochs中
+   请将训练用的图片放置于data目录下，并将train和val分别命名为DIV2K_train_HR以及DIV2K_valid_HR
+   可在run->endit configurations中配置相关参数
+4.关于测试集
+   在run->endit configurations中配置相关参数
+一个示例：
+--upscale_factor
+4
+--image_name
+140.jpg   
+--test_mode
+GPU
+注意：请将image_name其放到与test同一目录下，然后只写图片名字
+5.关于其他安装问题：如果某模块你已经安装，但报错不存在，请用conda install重新安装
+
+在srcnn上的训练，参考代码：https://github.com/okitasougo/SRCNN-pytorch
+1.自己用的python3.7版本可运行
+2.关于数据集：
+（1）数据准备：prepare.py  将train以及val图片分别打包为.h5
+先用to_bmp.py将图片转为bmp格式
+在run->endit configurations中配置相关参数
+一个示例：
+--images-dir
+./data/NWPU/val
+--output-path
+./BLAH_BLAH/NWPUval.h5
+（2）训练 对train进行相关配置
+在run->endit configurations中配置相关参数
+一个示例：
+--train-file
+./BLAH_BLAH/91-image_x3.h5
+--eval-file
+./BLAH_BLAH/Set5_x3.h5
+--outputs-dir
+./BLAH_BLAH/outputs
+3.关于测试集
+在run->endit configurations中配置相关参数
+一个示例：
+--weights-file
+BLAH_BLAH/outputs/x3/best.pth
+--image-file
+data/140.bmp
+
+
+
+
+
+
